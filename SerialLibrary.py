@@ -27,7 +27,7 @@ from robot.api.deco import keyword
 class PySerialError(Exception):
     """Represents the Serial exceptions"""
 
-class Serial:
+class SerialLibrary:
     """
     Library for interacting with serial devices.
 
