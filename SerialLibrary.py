@@ -53,6 +53,7 @@ class SerialLibrary:
 
     """
 
+    ROBOT_LIBRARY_SCOPE = "GLOBAL"
     ROBOT_AUTO_KEYWORDS = False
 
     def __init__(self, unicode='utf-8'):
