@@ -28,7 +28,7 @@ To use the PySerial Robot Framework Library in your Robot Framework test suites,
 
 ```robot
 *** Settings ***
-Library    Serial
+Library    SerialLibrary
 
 *** Test Cases ***
 Example Test
