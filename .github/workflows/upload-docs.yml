@@ -1,0 +1,45 @@
+name: Generate and Publish Documentation
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Install Robot Framework
+        run: |
+          pip install robotframework
+
+      - name: Generate Documentation using libdoc
+        run: |
+          python -m robot.libdoc Serial*.py docs/index.html
+
+      - name: Set up Git
+        uses: actions/setup-python@v2
+        with:
+          user.name: GitHub Actions
+          user.email: actions@github.com
+          ssh-key: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and Push Changes
+        run: |
+          git add docs/*.html
+          git commit -m "Auto generate libdocs $(date +'%s')"
+          git push origin main
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
