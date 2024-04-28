@@ -38,6 +38,9 @@ Example Test
 - **Read**: Reads data from the serial device.
 - **Write**: Writes data to the serial device.
 - **Read until**: Reads data from the serial device until a specified string is encountered.
+- **Read All**: Reads all the data from the input buffer
+- **Reset Input Buffer**: Clear the input buffer for the serial device
+- **Reset Output Buffer**: Clear the output buffer for the serial device
 - **Save buffer to file**: Saves the data buffer into a file.
 
 ## Documentation
