@@ -35,6 +35,8 @@ jobs:
       - name: Commit and Push Changes
         run: |
           git add docs/*.html
+          git config user.name "$GITHUB_TRIGGERING_ACTOR"
+          git config user.email "rengarajharish@gmail.com"
           git commit -m "Auto generate libdocs $(date +'%s')"
           git push origin main
 
