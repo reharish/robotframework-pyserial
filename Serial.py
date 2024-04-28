@@ -36,15 +36,19 @@ class Serial:
     | Serial.Connect | /dev/ttyUSB0 | 115200
     | Serial.Write   | Hello
     | ${DATA}=       | Serial.Read
+    | ${DATA}=       | Serial.Read All
     | Serial.Save Buffer to file |  /path/to/serial.log
 
     == Another Example ==
 
     | Connect     | /dev/ttyUSB1 | 115200
     | Set Timeout | 2
+    | Reset Input Buffer
+    | Reset Output Buffer
     | Write       | Hello
     | Write       | Hello
     | Read until  | World
+    | Read All
 
     """
 
@@ -169,6 +173,40 @@ class Serial:
         self.buffer.write(buff)
         return buff.decode(self.unicode)
 
+    @keyword("Read All")
+    def read_all(self):
+        """
+        Reads all the data available in the buffer
+        
+        Returns:
+        - The read data as a string.
+        """
+        if not self.device:
+            raise PySerialError("Device not connected to start read")
+        buff = self.device.read_all()
+        self.buffer.write(buff)
+        return buff.decode(self.unicode)
+
+    @keyword("Reset Input Buffer")
+    def reset_input_buffer(self):
+        """
+        Clear the input buffer for the serial device
+        """
+        if not self.device:
+            raise PySerialError("Device not connected to reset buffer")
+        self.device.reset_input_buffer()
+        return
+
+    @keyword("Reset Output Buffer")
+    def reset_output_buffer(self):
+        """
+        Clear the output buffer for the serial device
+        """
+        if not self.device:
+            raise PySerialError("Device not connected to reset buffer")
+        self.device.reset_output_buffer()
+        return
+
     @keyword("Close")
     def close_connection(self):
         """
@@ -187,8 +225,7 @@ class Serial:
         - outputfile: The path to the output file.
         """
         self.set_timeout(10)
-        buff = self.device.read()
-        self.buffer.write(buff)
+        self.read_all()
         with open(outputfile, 'wb+') as outf:
             outf.write(self.buffer.getvalue())
         print(f"File saved: {outputfile}")
