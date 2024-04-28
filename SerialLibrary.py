@@ -1,3 +1,4 @@
+# pylint: disable=C0103
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +18,9 @@ Author: reharish@github
 Requirements: robotframework, pyserial
 """
 
-import serial
-
 from io import BytesIO
+
+import serial
 
 from serial import SerialException
 from robot.api.deco import keyword
@@ -58,8 +59,7 @@ class SerialLibrary:
         """
         Initializes the Serial Library.
 
-        Arguments
-        - unicode - Unicode encoding for data communication.
+        ``unicode`` - Unicode encoding for data communication.
         """
         self.device = None
         self.timeout = 10
@@ -71,23 +71,30 @@ class SerialLibrary:
         """
         Connects to a serial device.
 
-        Arguments:
-        - device: The device name or a device number.
-        - baudrate: The baud rate to use for communication.
+        ``device`` - The device name or a device number.
 
-        Returns:
-        - The connected serial device object.
+        ``baudrate`` -  The baud rate to use for communication.
+
+        === Example ===
+        | Connect  |   <device>   | <baudrate>
+        | Connect  | /dev/ttyUSB0 | 115200
+
+        === Returns ===
+        The connected serial device object.
         """
         try:
             self.device = serial.Serial(device, baudrate=baudrate)
         except SerialException as exc:
-            raise PySerialError(f"Failed to connect {device}: {exc}")
+            raise PySerialError(f"Failed to connect {device}: {exc}") from exc
         return self.device
 
     @keyword("Disconnect")
     def disconnect_from_serial(self):
         """
         Disconnects from the serial device.
+
+        === Example ===
+        | Disconnect
         """
         self.device.close()
 
@@ -96,20 +103,26 @@ class SerialLibrary:
         """
         Sets the read timeout for the serial device.
 
-        Arguments:
-        - seconds: The timeout value in seconds.
+        ``seconds`` - The timeout value in seconds.
+
+        === Example ===
+        | Set Timeout  | <seconds>
+        | Set Timeout  |  10
         """
         if not self.device:
             raise PySerialError("Device not initialized to set timeout")
         self.device.timeout = seconds
 
     @keyword("Set Write Timeout")
-    def set_timeout_write(self, seconds: int):
+    def set_write_timeout(self, seconds: int):
         """
         Sets the write timeout for the serial device.
 
-        Arguments:
-        - seconds: The timeout value in seconds.
+        ``seconds`` - The timeout value in seconds.
+
+        === Example ===
+        | Set Write Timeout  | <seconds>
+        | Set Write Timeout  |  10
         """
         if not self.device:
             raise PySerialError("Device not connected to set write timeout")
@@ -120,8 +133,11 @@ class SerialLibrary:
         """
         Sets the Unicode encoding for data communication.
 
-        Arguments:
-        - unicode: The Unicode encoding to use.
+        ``unicode`` - The Unicode encoding to use.
+
+        === Example ===
+        | Set Unicode  | <unicode>
+        | Set Unicode  | utf-8
         """
         self.unicode = unicode
 
@@ -130,8 +146,11 @@ class SerialLibrary:
         """
         Reads data from the serial device.
 
-        Returns:
-        - The read data as a string.
+        === Example ===
+        | Read
+
+        === Returns ===
+        The read data as a string.
         """
         if not self.device:
             raise PySerialError("Device not connected to start read")
@@ -145,26 +164,31 @@ class SerialLibrary:
         """
         Writes data to the serial device.
 
-        Arguments:
-        - data: The data to write.
+        ``data`` - The data to write.
+
+        === Example ===
+        | Write
         """
         if not self.device:
             raise PySerialError("Device not connected to start write")
         try:
             self.device.write(data.encode())
         except SerialException as exc:
-            raise PySerialError(f"Failed to write to device: {exc}")
+            raise PySerialError(f"Failed to write to device: {exc}") from exc
 
     @keyword("Read until")
     def read_until(self, expected: str) -> str:
         """
         Reads data from the serial device until a specified string is encountered.
 
-        Arguments:
-        - expected: The string to read until.
+        ``expected`` - The string to read until.
 
-        Returns:
-        - The read data as a string.
+        === Example ===
+        | Read until  | <expected>
+        | Read until  | string
+
+        === Returns ===
+        The read data as a string.
         """
         if not self.device:
             raise PySerialError("Device not connected to start read")
@@ -173,13 +197,16 @@ class SerialLibrary:
         self.buffer.write(buff)
         return buff.decode(self.unicode)
 
-    @keyword("Read All")
-    def read_all(self):
+    @keyword("Read all")
+    def read_all(self) -> str:
         """
         Reads all the data available in the buffer
-        
-        Returns:
-        - The read data as a string.
+
+        === Example ===
+        | Read All
+
+        === Returns ===
+        The read data as a string.
         """
         if not self.device:
             raise PySerialError("Device not connected to start read")
@@ -191,26 +218,33 @@ class SerialLibrary:
     def reset_input_buffer(self):
         """
         Clear the input buffer for the serial device
+
+        === Example ===
+        | Reset Input Buffer
         """
         if not self.device:
             raise PySerialError("Device not connected to reset buffer")
         self.device.reset_input_buffer()
-        return
 
     @keyword("Reset Output Buffer")
     def reset_output_buffer(self):
         """
         Clear the output buffer for the serial device
+
+        === Example ===
+        | Reset Output Buffer
         """
         if not self.device:
             raise PySerialError("Device not connected to reset buffer")
         self.device.reset_output_buffer()
-        return
 
     @keyword("Close")
     def close_connection(self):
         """
         Closes the connection to the serial device.
+
+        === Example ===
+        | Close
         """
         if self.device:
             self.device.close()
@@ -221,8 +255,11 @@ class SerialLibrary:
         """
         Saves the data buffer into a file.
 
-        Arguments:
-        - outputfile: The path to the output file.
+        ``outputfile`` - The path to the output file.
+
+        === Example ===
+        | Save buffer to file  | <outputfile>
+        | Save buffer to file  | test.log
         """
         self.set_timeout(10)
         self.read_all()
