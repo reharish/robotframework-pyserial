@@ -1,4 +1,4 @@
-# PySerial - Robot Framework Library
+# Robot Framework - SerialLibrary
 
 ## Overview
 
@@ -9,6 +9,18 @@ PySerial Robot Framework Library is a Python library for interacting with serial
 ```bash
 pip install robotframework-pyserial
 ```
+
+## Documentation
+
+For detailed documentation of each keyword and usage examples, refer to the documentation in the below link,
+
+https://reharish.github.io/robotframework-pyserial
+
+## Project Inspiration
+
+- [zilogic-systems/parrot](https://github.com/zilogic-systems/parrot) - Embedded Test Automation Framework, based on Robot Framework.
+
+- [pySerial](https://github.com/pyserial/pyserial) - Python serial port access library
 
 ## Usage
 
@@ -30,23 +42,28 @@ Example Test
 
 ## Keywords
 
-- **Connect to Serial**: Connects to a serial device.
-- **Disconnect from Serial**: Disconnects from the serial device.
-- **Set Timeout**: Sets the read timeout for the serial device.
-- **Set Write Timeout**: Sets the write timeout for the serial device.
-- **Set Unicode**: Sets the Unicode encoding for data communication.
-- **Read**: Reads data from the serial device.
-- **Write**: Writes data to the serial device.
-- **Read until**: Reads data from the serial device until a specified string is encountered.
-- **Read All**: Reads all the data from the input buffer
-- **Reset Input Buffer**: Clear the input buffer for the serial device
-- **Reset Output Buffer**: Clear the output buffer for the serial device
-- **Save buffer to file**: Saves the data buffer into a file.
+| Keyword                  | Description                                    |
+|--------------------------|------------------------------------------------|
+| **Connect to Serial**    | Connects to a serial device.                   |
+| **Disconnect from Serial** | Disconnects from the serial device.           |
+| **Set Timeout**          | Sets the read timeout for the serial device.   |
+| **Set Write Timeout**    | Sets the write timeout for the serial device.  |
+| **Set Unicode**          | Sets the Unicode encoding for data communication. |
+| **Read**                 | Reads data from the serial device.             |
+| **Write**                | Writes data to the serial device.              |
+| **Read until**           | Reads data from the serial device until a specified string is encountered. |
+| **Read All**             | Reads all the data from the input buffer.      |
+| **Reset Input Buffer**   | Clear the input buffer for the serial device.  |
+| **Reset Output Buffer**  | Clear the output buffer for the serial device. |
+| **Save buffer to file**  | Saves the data buffer into a file.             |
 
-## Documentation
 
-For detailed documentation of each keyword and usage examples, refer to the documentation in the source code.
+## Contributors
+
+- Harishbabu Rengaraj([@reharish](https://github.com/reharish))
+- Abisheak Kumarasamy ([@abi-sheak](https://github.com/abi-sheak))
+
 
 ## License
 
-APACHE 2.0 - See the LICENSE file for details.
+- See the `LICENSE` file for details.
