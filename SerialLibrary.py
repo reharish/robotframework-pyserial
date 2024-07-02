@@ -68,25 +68,29 @@ class SerialLibrary:
         self.buffer = BytesIO()
 
     @keyword("Connect")
-    def connect_to_serial(self, device: str, baudrate: int) -> serial.Serial:
+    def connect_to_serial_url(self, url: str, baudrate: int) -> serial.Serial:
         """
         Connects to a serial device.
 
-        ``device`` - The device name or a device number.
+        ``url`` - The device name or URL. see: https://pythonhosted.org/pyserial/url_handlers.html#urls
 
         ``baudrate`` -  The baud rate to use for communication.
 
+        NOTE: baudrate is kept for backwords compatibility.
         === Example ===
-        | Connect  |   <device>   | <baudrate>
-        | Connect  | /dev/ttyUSB0 | 115200
+        | ConnectUrl  |   <device>   | <baudrate>
+        | ConnectUrl  | /dev/ttyUSB0 | 115200
+        | ConnectUrl  | spy:///dev/ttyUSB0/file=dump-comms.txt | 115200
 
         === Returns ===
         The connected serial device object.
         """
         try:
-            self.device = serial.Serial(device, baudrate=baudrate)
+            self.device = serial.serial_for_url(url, do_not_open=True)
+            self.device.baudrate = baudrate
+            self.device.open()
         except SerialException as exc:
-            raise PySerialError(f"Failed to connect {device}: {exc}") from exc
+            raise PySerialError(f"Failed to connect {url}: {exc}") from exc
         return self.device
 
     @keyword("Disconnect")
