@@ -44,8 +44,8 @@ Example Test
 
 | Keyword                  | Description                                    |
 |--------------------------|------------------------------------------------|
-| **Connect to Serial**    | Connects to a serial device.                   |
-| **Disconnect from Serial** | Disconnects from the serial device.           |
+| **Connect**    | Connects to a serial device.                   |
+| **Disconnect** | Disconnects from the serial device.           |
 | **Set Timeout**          | Sets the read timeout for the serial device.   |
 | **Set Write Timeout**    | Sets the write timeout for the serial device.  |
 | **Set Unicode**          | Sets the Unicode encoding for data communication. |
@@ -62,6 +62,7 @@ Example Test
 
 - Harishbabu Rengaraj([@reharish](https://github.com/reharish))
 - Abisheak Kumarasamy ([@abi-sheak](https://github.com/abi-sheak))
+- Karl Palsson ([@karlp](https://github.com/karlp))
 
 
 ## License
