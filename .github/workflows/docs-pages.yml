@@ -1,4 +1,4 @@
-name: Generate and Publish Documentation
+name: docs pages
 
 on:
   push:
