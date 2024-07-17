@@ -6,11 +6,16 @@ PySerial Robot Framework Library is a Python library for interacting with serial
 
 ## Installation
 
+![pypi workflow](https://github.com/reharish/robotframework-pyserial/actions/workflows/pypi-package.yml/badge.svg)
+
 ```bash
 pip install robotframework-pyserial
 ```
 
+
 ## Documentation
+
+![docs workflow](https://github.com/reharish/robotframework-pyserial/actions/workflows/docs-pages.yml/badge.svg)
 
 For detailed documentation of each keyword and usage examples, refer to the documentation in the below link,
 
@@ -32,10 +37,10 @@ Library    SerialLibrary
 
 *** Test Cases ***
 Example Test
-    Connect to Serial    COM1    9600
+    Connect        COM1    9600
     Set Timeout    5
-    Write    Hello, world!
-    ${data}=    Read
+    Write          Hello, world!
+    ${data}=       Read
     Should Be Equal    ${data}    Hello, world!
     Disconnect from Serial
 ```
@@ -44,8 +49,8 @@ Example Test
 
 | Keyword                  | Description                                    |
 |--------------------------|------------------------------------------------|
-| **Connect**    | Connects to a serial device.                   |
-| **Disconnect** | Disconnects from the serial device.           |
+| **Connect**              | Connects to a serial device.                   |
+| **Disconnect**           | Disconnects from the serial device.            |
 | **Set Timeout**          | Sets the read timeout for the serial device.   |
 | **Set Write Timeout**    | Sets the write timeout for the serial device.  |
 | **Set Unicode**          | Sets the Unicode encoding for data communication. |
