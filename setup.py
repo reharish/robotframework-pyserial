@@ -9,7 +9,7 @@ with open(path.join(here, "README.md"), "r") as fd:
 
 setup(
     name='robotframework-pyserial',
-    version='1.1.0',
+    version='1.2.0',
     description='Robotframework implementation of beloved pyserial module',
     license="Apache License 2.0",
     url="https://reharish.github.io/cv",
