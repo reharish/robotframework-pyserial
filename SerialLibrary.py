@@ -14,7 +14,7 @@
 #
 
 """
-Author: reharish@github
+Author: reharish
 Requirements: robotframework, pyserial
 """
 
@@ -78,9 +78,9 @@ class SerialLibrary:
 
         NOTE: baudrate is kept for backwords compatibility.
         === Example ===
-        | ConnectUrl  |   <device>   | <baudrate>
-        | ConnectUrl  | /dev/ttyUSB0 | 115200
-        | ConnectUrl  | spy:///dev/ttyUSB0/file=dump-comms.txt | 115200
+        | Connect |   <device>   | <baudrate>
+        | Connect | /dev/ttyUSB0 | 115200
+        | Connect | spy:///dev/ttyUSB0/file=dump-comms.txt | 115200
 
         === Returns ===
         The connected serial device object.
