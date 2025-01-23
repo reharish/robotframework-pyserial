@@ -182,26 +182,34 @@ class SerialLibrary:
             raise PySerialError(f"Failed to write to device: {exc}") from exc
 
     @keyword("Read until")
-    def read_until(self, expected: str, quiet=True) -> str:
+    def read_until(self, expected:  str | bytes, quiet=True, string=True) -> str | bytes:
         """
         Reads data from the serial device until a specified string is encountered.
 
         ``expected`` - The string to read until.
+        ``quiet`` - To set the assertion.
+        ``string`` - The format of the output, str by default.
 
         === Example ===
         | Read until  | <expected>
-        | Read until  | string   quiet=False
+        | Read until  | string  | quiet=False
+        | Read until  | string  | string=False
 
         === Returns ===
-        The read data as a string.
-        If the expected not found in the read data, It throws error.
+        The read data as a string by default or bytes.
+
+        If the expected not found in the read data,
+        It throws error when quiet set to false.
         """
         if not self.device:
             raise PySerialError("Device not connected to start read")
         expected = expected.encode()
+        if isinstance(expected, str):
+            expected = expected.encode()
         buff = self.device.read_until(expected)
         self.buffer.write(buff)
-        data = buff.decode(self.unicode)
+        if string:
+            data = buff.decode(self.unicode)
         if quiet or expected in buff.decode(self.unicode):
             return data
         raise PySerialError(f"Expected: {expected} not in {data}")
